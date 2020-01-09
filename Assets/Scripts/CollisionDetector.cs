@@ -16,7 +16,7 @@ public class CollisionDetector : MonoBehaviour
 				sp.AddSnowAtPoint(point);
 				break;
 			case 1:
-				sb.Grow(point);
+				sb.Grow();
 				break;
 		}
 	}

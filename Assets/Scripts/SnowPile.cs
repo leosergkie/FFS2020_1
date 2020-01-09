@@ -72,6 +72,45 @@ public class SnowPile : MonoBehaviour
     	return null;
     }
 
+    public int GetSnowFromPoint(float x)
+    {
+    	int i = Mathf.RoundToInt((x + cellSize/2 - leftBorder.position.x)/cellSize);
+    	// Debug.Log(i);
+    	if(points[i] < 3)
+    	{
+    		return 0;
+    	}
+    	points[i]--;
+    	InspectPile(i);
+		texture.SetPixel(i, points[i], Color.clear);
+		texture.Apply();
+		MakeCollider();
+		Redraw();
+    	return 1;
+    }
+
+	public void InspectPile(int i)
+	{
+		if(i > 0)
+		{
+			if(points[i-1] > points[i] + 1)
+			{
+				points[i-1]--;
+				points[i]++;
+				return;
+			}
+		}
+		if(i < sizeX-1)
+		{
+			if(points[i+1] > points[i] + 1)
+			{
+				points[i+1]--;
+				points[i]++;
+				return;
+			}
+		}
+	}
+
     public void AddSnowAtPoint(float x)
     {
     	int i = Mathf.RoundToInt((x - leftBorder.position.x)/cellSize);
@@ -98,7 +137,8 @@ public class SnowPile : MonoBehaviour
 		}
 		else
 		{
-
+			points[i]--;
+			return;
 			// pile = FindAnotherPile(leftBorder.position.x - cellSize);
 			// if(pile != null)
 			// {
@@ -122,6 +162,8 @@ public class SnowPile : MonoBehaviour
 		}
 		else
 		{
+			points[i]--;
+			return;
 			// pile = FindAnotherPile(rightBorder.position.x + cellSize);
 			// if(pile != null)
 			// {
@@ -184,6 +226,8 @@ public class SnowPile : MonoBehaviour
 		if(points[i] > currentHeight)
 		{
 			texture.Resize(sizeX, points[i] + 1);
+			sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0, 0), pixelDens);
+		    spriteRenderer.sprite = sprite;
 			for(int j = 0; j < sizeX; j++)
 			{
 				for(int k = 0; k < points[i] + 1; k++)
@@ -202,8 +246,7 @@ public class SnowPile : MonoBehaviour
 		}
 		texture.SetPixel(i, points[i]-1, Color.white);
 		texture.Apply();
-		sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0, 0), pixelDens);
-	    spriteRenderer.sprite = sprite;
+
 
     }
 
@@ -241,8 +284,8 @@ public class SnowPile : MonoBehaviour
     	{
     		AddSnowAtPoint(point);
     	}
-    	sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0, 0), pixelDens);
-	    spriteRenderer.sprite = sprite;
+    	// sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0, 0), pixelDens);
+	    // spriteRenderer.sprite = sprite;
 	    // polygonCollider.Reset();
 	    MakeCollider();
     }
@@ -267,5 +310,22 @@ public class SnowPile : MonoBehaviour
 	  	partDetColl.points = vertices;
 	  	// polcol.enabled = true;
     	// polcol.offset = new Vector2(0, -cellSize*2.5f);
+    }
+    public void Redraw()
+    {
+    	for(int i = 0; i < sizeX; i++)
+		{
+			for(int j= 0; j< currentHeight; j++)
+			{
+				if(j <= points[i]-1)
+				{
+					texture.SetPixel(i, j, Color.white);
+				}
+				else
+				{
+					texture.SetPixel(i, j, Color.clear);
+				}
+			}
+		}
     }
 }
