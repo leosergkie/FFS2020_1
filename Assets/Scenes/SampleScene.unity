@@ -5313,6 +5313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1122385451}
   - component: {fileID: 1122385450}
+  - component: {fileID: 1122385452}
   m_Layer: 0
   m_Name: Global
   m_TagString: Untagged
@@ -5347,6 +5348,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1122385452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122385449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c869e7969981684498c82d1fe2d95b80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DragLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  m_Damping: 1
+  m_Frequency: 5
+  maxForce: 100
+  breakForce: 200
+  m_DrawDragLine: 1
+  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  maxMassMultiplier: 4
 --- !u!1 &1309486723
 GameObject:
   m_ObjectHideFlags: 0

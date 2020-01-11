@@ -27,6 +27,7 @@ public class Snowball : MonoBehaviour
 	public ParticleSystem particles;
 
 	private bool jumpNextFrame = false;
+
 	void Start()
 	{
 		// rb = GetComponent<Rigidbody2D>();
